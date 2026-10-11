@@ -10,17 +10,26 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../components/ui/dialog";
+import api from "../configs/axios";
 
 const Dashboard = () => {
   const [showCreateResume, setShowCreateResume] = useState(false);
   const [title, setTitle] = useState("");
+  const [errMsg, setErrMsg] = useState("");
 
   const handleCreateResume = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    try {
+      await api.post("/resume", { title });
 
-    console.log(title);
+      alert("Resume created successfully");
 
-    setShowCreateResume(false);
+      setTitle("");
+      setShowCreateResume(false);
+
+    } catch (error: any) {
+      setErrMsg(error.response.data.message);
+    }
   };
 
   // Open dialog
@@ -82,16 +91,17 @@ const Dashboard = () => {
               Give your resume a title to get started.
             </DialogDescription>
           </DialogHeader>
-
+          {errMsg && <p className="text-red-500 text-sm text-center">{errMsg}</p>}
           <form onSubmit={handleCreateResume} className="space-y-4">
             <Input
               type="text"
               placeholder="Enter resume title"
               value={title}
               onChange={(e: any) => setTitle(e.target.value)}
+              required
             />
 
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full bg-green-500 hover:bg-green-600">
               Create Resume
             </Button>
           </form>
