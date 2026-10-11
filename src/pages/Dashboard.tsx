@@ -1,6 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { FilePenLine, PencilIcon, PlusIcon, TrashIcon } from "lucide-react";
-
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import {
@@ -11,6 +10,7 @@ import {
   DialogTitle,
 } from "../components/ui/dialog";
 import api from "../configs/axios";
+import { toast } from "sonner";
 
 const Dashboard = () => {
   const [showCreateResume, setShowCreateResume] = useState(false);
@@ -24,7 +24,7 @@ const Dashboard = () => {
     try {
       await api.post("/resume", { title });
 
-      alert("Resume created successfully");
+      toast.success("Resume created successfully");
 
       setTitle("");
       setShowCreateResume(false);
@@ -43,7 +43,7 @@ const Dashboard = () => {
         await api.delete(`/resume/${resumeId}`);
         getAllResumes();
       }
-      alert("Resume deleted successfully");
+      toast.success("Resume deleted successfully");
     } catch (error: any) {
       setErrMsg(error.response.data.message);
     }
