@@ -1,18 +1,29 @@
 import { useState } from "react"
 import { Link } from "react-router"
+import { FileText } from "lucide-react";
+import { useAuthStore } from "../stores/authStore"
 
 
 const Hero = () => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const { isAuthenticated } = useAuthStore()
 
 
   return (
     <>
       <nav className='h-20'>
         <div className='fixed left-0 top-0 right-0 z-100 flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white transition-all'>
-          <a href="https://prebuiltui.com" className="font-bold text-3xl">
-          Resuvo.
+          <a href="/" className="flex items-center gap-2">
+            <div className="flex size-9 items-center justify-center rounded-lg bg-blue-500 text-primary-foreground">
+              <FileText className="size-5" />
+            </div>
+
+            <span className="text-xl font-bold tracking-tight">
+              Resuvo
+            </span>
           </a>
+
+
 
           {/* Desktop Menu */}
           <div className='hidden sm:flex items-center gap-4 md:gap-8 max-md:text-sm text-gray-800'>
@@ -23,7 +34,11 @@ const Hero = () => {
           </div>
 
           <div>
-            <Link to={"/login"} className='max-sm:hidden cursor-pointer px-8 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full'>Login</Link>
+            {isAuthenticated ? (
+              <Link to={"/app"} className='max-sm:hidden cursor-pointer px-8 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full'>Dashboard</Link>
+            ) : (
+              <Link to={"/login"} className='max-sm:hidden cursor-pointer px-8 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full'>Login</Link>
+            )}
 
             <svg onClick={() => setMenuOpen(true)} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="sm:hidden"><path d="M4 5h16" /><path d="M4 12h16" /><path d="M4 19h16" /></svg>
           </div>
@@ -37,7 +52,12 @@ const Hero = () => {
             <a href="#features" onClick={() => scrollTo(0, 0)}> Features </a>
             <a href="#testimonials" onClick={() => scrollTo(0, 0)}> Testimonials </a>
             <a href="#faq" onClick={() => scrollTo(0, 0)}> FAQs </a>
-            <Link to={"/login"} className=' cursor-pointer px-8 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full'>Login</Link>
+
+            {isAuthenticated ? (
+              <Link to={"/app"} className=' cursor-pointer px-8 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full'>Dashboard</Link>
+            ) : (
+              <Link to={"/login"} className=' cursor-pointer px-8 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full'>Login</Link>
+            )}
             <svg onClick={() => setMenuOpen(false)} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute size-8 right-6 top-6 text-gray-500 hover:text-gray-700 cursor-pointer"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
           </div>
         </div>
@@ -75,7 +95,13 @@ const Hero = () => {
         </h1>
 
         <p className="max-w-xl text-center text-base my-7">Create a stunning, job winning resume effortlessly with our intuitive builder. Choose modern templates, customize your content, and export your resume in just a few clicks-no design skills required</p>
-        <Link to="/register" className='bg-indigo-600 text-white p-3 px-6 rounded-md cursor-pointer'>Try Free Now</Link>
+
+
+        {isAuthenticated ? (
+          <Link to="/app" className='bg-indigo-600 text-white p-3 px-6 rounded-md cursor-pointer'>Dashboard</Link>
+        ) : (
+          <Link to="/register" className='bg-indigo-600 text-white p-3 px-6 rounded-md cursor-pointer'>Try Free Now</Link>
+        )}
       </div>
       <style>
         {`

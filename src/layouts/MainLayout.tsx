@@ -1,23 +1,17 @@
-import { Outlet } from "react-router"
+import { Navigate, Outlet } from "react-router"
 import Header from "../components/Header"
+import { useAuthStore } from "../stores/authStore"
 
 const MainLayout = () => {
-  const user = {
-    name: "Rando",
-    email: "rando@example.com",
-  };
+  const { isAuthenticated } = useAuthStore();
 
-  const handleLogout = () => {
-    // Hubungkan dengan fungsi logout autentikasi lu.
-    console.log("Logout clicked");
-  };
-
-  return (
+  return isAuthenticated ? (
     <>
-      <Header user={user} onLogout={handleLogout} />
+      <Header />
       <Outlet />
-      <h1>Footer</h1>
     </>
+  ) : (
+    <Navigate to={"/login"} replace />
   )
 }
 
