@@ -11,12 +11,14 @@ import {
 } from "../components/ui/dialog";
 import api from "../configs/axios";
 import { toast } from "sonner";
+import { useNavigate } from "react-router";
 
 const Dashboard = () => {
   const [showCreateResume, setShowCreateResume] = useState(false);
   const [title, setTitle] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [resumes, setResumes] = useState([]);
+  const navigate = useNavigate();
 
   // Create Resume
   const handleCreateResume = async (e: FormEvent<HTMLFormElement>) => {
@@ -134,6 +136,7 @@ const Dashboard = () => {
                 <div onClick={(e) => e.stopPropagation()} className="flex items-center gap-1 opacity-100 translate-y-0">
                   <button
                     type="button"
+                    onClick={() => navigate(`/app/resume-builder/${resume._id}`)}
                     aria-label="Edit resume"
                     className="p-2 cursor-pointer rounded-lg text-blue-600 bg-blue-50 transition-colors"
                   >

@@ -3,7 +3,8 @@ import { useAuthStore } from "../stores/authStore";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { FileText, LogOut } from "lucide-react";
-import { useNavigate } from "react-router"
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
 
 const getInitials = (name?: string) => {
   if (!name?.trim()) return "U";
@@ -26,7 +27,7 @@ const Header = () => {
     try {
       await api.post('/auth/logout', {})
       removeUserData()
-      alert("Logout Berhasil")
+      toast.success("You have been logged out")
       navigate("/")
 
     } catch (error) {

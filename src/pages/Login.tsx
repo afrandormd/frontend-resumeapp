@@ -1,8 +1,9 @@
-import { useState } from "react"
-import { User2Icon, Mail, Lock } from "lucide-react"
-import { Navigate, useNavigate } from "react-router"
-import { useAuthStore } from "../stores/authStore"
-import api from "../configs/axios"
+import { useState } from "react";
+import { User2Icon, Mail, Lock } from "lucide-react";
+import { Navigate, useNavigate } from "react-router";
+import { useAuthStore } from "../stores/authStore";
+import api from "../configs/axios";
+import { toast } from "sonner";
 
 const Login = () => {
   const [state, setState] = useState("login")
@@ -24,12 +25,12 @@ const Login = () => {
     try {
       if (state === "login") {
         const { data } = await api.post('/auth/login', formData)
-        alert("Login Berhasil")
+        toast.success("Login Successful")
         setUserData(data.user)
         navigate("/app")
       } else {
         const { data } = await api.post('/auth/register', formData)
-        alert("Register Berhasil")
+        toast.success("Register Successful")
         setUserData(data.user)
         navigate("/app")
       }
