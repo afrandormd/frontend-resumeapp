@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router"
 import api from "../configs/axios";
 import { ArrowLeftIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import PersonalInfoForm from "../components/forms/PersonalInfoForm";
 
 const ResumeBuilder = () => {
   const { resumeId } = useParams()
@@ -31,7 +32,7 @@ const ResumeBuilder = () => {
     { id: 'skills', name: 'Skills' },
   ]
 
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = (e: any) => {
     e.preventDefault()
     console.log(resumeData)
   }
@@ -92,7 +93,11 @@ const ResumeBuilder = () => {
               <div className="space-y-6">
                 <form onSubmit={handleSubmitForm}>
                   {activeSection.id === 'personal' && (
-                    <h1 className="text-2xl font-bold text-blue-500">Personal Info</h1>
+                    <PersonalInfoForm data={resumeData.personalInfo} onChange={(data: any) => setResumeData((prev) => ({
+                      ...prev,
+                      personalInfo: data,
+                    }))
+                    } removeBackground={removeBackground} setRemoveBackground={setRemoveBackground} />
                   )}
                   {activeSection.id === 'summary' && (
                     <h1 className="text-2xl font-bold text-blue-500">Summary</h1>
