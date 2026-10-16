@@ -4,6 +4,7 @@ import api from "../configs/axios";
 import { ArrowLeftIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import PersonalInfoForm from "../components/forms/PersonalInfoForm";
 import SummaryForm from "../components/forms/SummaryForm";
+import ResumePreview from "../components/ResumePreview";
 
 const ResumeBuilder = () => {
   const { resumeId } = useParams()
@@ -124,9 +125,17 @@ const ResumeBuilder = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="lg:col-span-7 max-lg:mt-6">
-          {/* Preview */}
+          <div className="lg:col-span-7 max-lg:mt-6">
+            {/* Preview */}
+            <div className="lg:col-span-7 max-lg:mt-6">
+              <div>
+                {/* Action print share */}
+              </div>
+              <div>
+                <ResumePreview data={resumeData} template={resumeData.template} accentColor={resumeData.accentColor} />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
