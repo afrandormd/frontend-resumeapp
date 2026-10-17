@@ -8,10 +8,12 @@ type SummaryFormProps = {
 const SummaryForm = ({ data, onChange, setResumeData }: SummaryFormProps) => {
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-bold text-gray-900">Summary</h3>
-      <p className="text-sm text-gray-500">Add your professional summary</p>
+      <div>
+        <h3 className="text-lg font-bold text-gray-900">Summary</h3>
+        <p className="text-sm text-gray-500">Add your professional summary</p>
+      </div>
       {/* Form */}
-      <div className="mt-6">
+      <div>
         <textarea value={data || ""} onChange={(e: any) => onChange(e.target.value)} rows={7} className="w-full p-3 px-4 mt-2 border text-sm border-gray-300 rounded-lg focus:ring focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors resize-none" placeholder="Enter your professional summary"></textarea>
       </div>
     </div>
