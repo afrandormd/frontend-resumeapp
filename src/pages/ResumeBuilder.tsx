@@ -8,6 +8,7 @@ import ResumePreview from "../components/ResumePreview";
 import ExperiencesForm from "../components/forms/ExperiencesForm";
 import EducationsForm from "../components/forms/EducationsForm";
 import ProjectsForm from "../components/forms/ProjectsForm";
+import SkillsForm from "../components/forms/SkillsForm";
 
 const ResumeBuilder = () => {
   const { resumeId } = useParams()
@@ -131,7 +132,10 @@ const ResumeBuilder = () => {
                     />
                   )}
                   {activeSection.id === 'skills' && (
-                    <h1 className="text-2xl font-bold text-blue-500">Skills</h1>
+                    <SkillsForm data={resumeData.skills} onChange={(data: any) => setResumeData((prev) => ({
+                      ...prev, skills: data
+                    }))}
+                    />
                   )}
                 </form>
               </div>
