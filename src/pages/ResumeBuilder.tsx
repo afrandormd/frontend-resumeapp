@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router"
 import api from "../configs/axios";
-import { ArrowLeftIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeftIcon, ChevronLeft, ChevronRight, SaveIcon } from "lucide-react";
 import PersonalInfoForm from "../components/forms/PersonalInfoForm";
 import SummaryForm from "../components/forms/SummaryForm";
 import ResumePreview from "../components/ResumePreview";
@@ -9,10 +9,35 @@ import ExperiencesForm from "../components/forms/ExperiencesForm";
 import EducationsForm from "../components/forms/EducationsForm";
 import ProjectsForm from "../components/forms/ProjectsForm";
 import SkillsForm from "../components/forms/SkillsForm";
+import SettingsForm from "../components/forms/SettingsForm";
+import { toast } from "sonner";
+
+type PersonalInfo = {
+  fullName?: string;
+  email?: string;
+  phone?: string;
+  location?: string;
+  profession?: string;
+  image?: string | File;
+};
+
+type ResumeData = {
+  _id: string;
+  title: string;
+  summary: string;
+  template: string;
+  accentColor: string;
+  educations: any[];
+  experiences: any[];
+  personalInfo: PersonalInfo;
+  projects: any[];
+  public: boolean;
+  skills: string[];
+};
 
 const ResumeBuilder = () => {
   const { resumeId } = useParams()
-  const [resumeData, setResumeData] = useState({
+  const [resumeData, setResumeData] = useState<ResumeData>({
     _id: "",
     title: "",
     summary: "",
@@ -36,11 +61,31 @@ const ResumeBuilder = () => {
     { id: 'educations', name: 'Educations' },
     { id: 'projects', name: 'Projects' },
     { id: 'skills', name: 'Skills' },
+    { id: 'settings', name: 'Settings' },
   ]
 
-  const handleSubmitForm = (e: any) => {
+  const handleSubmitForm = async (e: any) => {
     e.preventDefault()
-    console.log(resumeData)
+    try {
+      const formData = new FormData();
+      formData.append("resumeData", JSON.stringify(resumeData));
+      removeBackground && formData.append("removeBackground", "yes");
+      typeof resumeData.personalInfo.image === "object" &&
+        formData.append("image", resumeData.personalInfo.image)
+
+      const response = await api.put(`/resume/${resumeId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        }
+      });
+
+      setResumeData(response.data.resume);
+      
+      toast.success("Resume updated successfully");
+
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const activeSection = sections[activeSectionIndex];
@@ -48,7 +93,7 @@ const ResumeBuilder = () => {
   // Get Data Resume By Id
   const getResumeById = async () => {
     const response = await api.get(`/resume/${resumeId}`);
-    console.log(response.data)
+    setResumeData(response.data.resume);
   }
 
   useEffect(() => {
@@ -71,9 +116,12 @@ const ResumeBuilder = () => {
           <div className="relative lg:col-span-5 rounded-lg shadow-sm border-gray-200 overflow-hidden">
             <div className="bg-white rounded-lg border-gray-200 p-6 pt-4">
               <div className="bg-green-500 h-4 transition-all rounded-full duration-2000" style={{ width: `${(activeSectionIndex * 100) / (sections.length - 1)}%` }}>
+                {/* Percentage*/}
+                {/*
                 <span className={`absolute text-sm z-10 flex items-center justify-start px-2 font-semibold text-gray-500 ${activeSectionIndex > 0 ? "text-white" : "text-gray-500"}`}>
                   {(activeSectionIndex * 100) / (sections.length - 1)}%
                 </span>
+                */}
               </div>
               {/* Section Navigation / Pagination */}
               <div className="flex justify-between items-center mb-6 border-b border-gray-300 py-1">
@@ -137,6 +185,22 @@ const ResumeBuilder = () => {
                     }))}
                     />
                   )}
+                  {activeSection.id === 'settings' && (
+                    <SettingsForm data={resumeData} onChange={(data: any) => setResumeData((prev) => ({
+                      ...prev,
+                      title: data.title,
+                      template: data.template,
+                      public: data.public,
+                      accentColor: data.accentColor
+                    }))} />
+                  )}
+
+                  <button type="submit" className="bg-green-400 text-white hover:bg-green-600 transition-all rounded-lg px-6 py-3 mt-6 text-sm">
+                    <span className="flex items-center justify-center gap-2">
+                      <SaveIcon className="size-4" />
+                      Save
+                    </span>
+                  </button>
                 </form>
               </div>
             </div>

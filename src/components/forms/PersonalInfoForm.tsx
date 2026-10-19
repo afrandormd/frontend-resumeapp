@@ -50,7 +50,7 @@ const PersonalInfoForm = ({ data, onChange, removeBackground, setRemoveBackgroun
           <BriefcaseBusiness className="size-4" />
           Job Title <span className="text-red-500">*</span>
         </label>
-        <input type="email" placeholder="Enter your job title" className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-indigo-500 transition-colors text-sm" value={data['jobTitle'] || ""} onChange={(e: any) => handleChange("jobTitle", e.target.value)} />
+        <input type="text" placeholder="Enter your job title" className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-indigo-500 transition-colors text-sm" value={data['jobTitle'] || ""} onChange={(e: any) => handleChange("jobTitle", e.target.value)} />
       </div >
       <div className="space-y-1 mt-5">
         <label className="flex items-center gap-2 text-sm font-medium text-gray-500">

@@ -8,7 +8,7 @@ type EducationsFormProps = {
 const EducationsForm = ({ data, onChange }: EducationsFormProps) => {
   const addEducation = () => {
     const newEducation = {
-      institutionName: "",
+      institueName: "",
       degree: "",
       fieldOfStudy: "",
       startDate: "",
@@ -57,7 +57,7 @@ const EducationsForm = ({ data, onChange }: EducationsFormProps) => {
               </div>
               {/* Input Field */}
               <div className="grid md:grid-cols-2 gap-3">
-                <input type="text" placeholder="Institution Name" className="px-3 py-2 text-sm border rounded-lg border-gray-500" value={education.institutionName || ""} onChange={(e) => updateChangeEducation(index, "institutionName", e.target.value)} />
+                <input type="text" placeholder="Institution Name" className="px-3 py-2 text-sm border rounded-lg border-gray-500" value={education.institueName || ""} onChange={(e) => updateChangeEducation(index, "institueName", e.target.value)} />
                 <input type="text" placeholder="Field of Study" className="px-3 py-2 text-sm border rounded-lg border-gray-500" value={education.fieldOfStudy || ""} onChange={(e) => updateChangeEducation(index, "fieldOfStudy", e.target.value)} />
               </div>
               <div className="grid md:grid-cols-2 gap-3">
