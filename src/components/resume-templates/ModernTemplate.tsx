@@ -1,5 +1,4 @@
-import { Mail, Phone, MapPin, Link2, Globe } from "lucide-react";
-import { Link } from "react-router";
+import { Mail, Phone, MapPin, Globe } from "lucide-react";
 
 type ModernTemplateProps = {
   data: any;

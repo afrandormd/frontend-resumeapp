@@ -1,4 +1,4 @@
-import { BriefcaseBusiness, Globe, Link, Mail, MapPin, Phone, User } from "lucide-react"
+import { BriefcaseBusiness, Globe, Mail, MapPin, Phone, User } from "lucide-react"
 
 type PersonalInfoFormProps = {
   data: any,
