@@ -2,7 +2,7 @@ import api from "../configs/axios";
 import { useAuthStore } from "../stores/authStore";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Button } from "./ui/button";
-import { FileText, LogOut, PanelsTopLeft } from "lucide-react";
+import { LogOut, PanelsTopLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 
