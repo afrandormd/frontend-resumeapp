@@ -17,6 +17,7 @@ function App() {
           <Route path="resume-builder/:resumeId" element={<ResumeBuilder />} />
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Login />} />
         <Route path="/view/:resumeId" element={<Preview />} />
       </Routes>
       <Toaster position="top-center" richColors />

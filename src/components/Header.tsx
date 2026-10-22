@@ -2,8 +2,8 @@ import api from "../configs/axios";
 import { useAuthStore } from "../stores/authStore";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Button } from "./ui/button";
-import { FileText, LogOut } from "lucide-react";
-import { useNavigate } from "react-router";
+import { FileText, LogOut, PanelsTopLeft } from "lucide-react";
+import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 
 const getInitials = (name?: string) => {
@@ -40,15 +40,25 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2">
-          <div className="flex size-9 items-center justify-center rounded-lg bg-blue-500 text-primary-foreground">
-            <FileText className="size-5" />
+        <Link
+          to="/"
+          className="flex shrink-0 items-center gap-2.5"
+          aria-label="Foliora Home"
+        >
+          <div className="flex size-10 items-center justify-center rounded-xl bg-violet-700 text-white shadow-lg shadow-violet-200">
+            <PanelsTopLeft size={22} strokeWidth={2.3} />
           </div>
 
-          <span className="text-xl font-bold tracking-tight">
-            Resuvo
-          </span>
-        </a>
+          <div>
+            <span className="text-xl font-extrabold tracking-tight text-slate-900">
+              foli<span className="text-violet-700">ora</span>
+            </span>
+
+            <p className="-mt-1 text-[10px] font-medium tracking-wide text-slate-500">
+              YOUR CAREER TOOLKIT
+            </p>
+          </div>
+        </Link>
 
         {/* User & Logout */}
         <div className="flex items-center gap-3 sm:gap-5">
