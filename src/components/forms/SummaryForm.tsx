@@ -5,7 +5,7 @@ type SummaryFormProps = {
   setResumeData: any
 }
 
-const SummaryForm = ({ data, onChange, setResumeData }: SummaryFormProps) => {
+const SummaryForm = ({ data, onChange }: SummaryFormProps) => {
   return (
     <div className="space-y-4">
       <div>

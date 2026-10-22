@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router"
 import api from "../configs/axios";
-import { ArrowLeftIcon, ChevronLeft, ChevronRight, SaveIcon } from "lucide-react";
+import { ArrowLeftIcon, ChevronLeft, ChevronRight, DownloadIcon, SaveIcon, ShareIcon } from "lucide-react";
 import PersonalInfoForm from "../components/forms/PersonalInfoForm";
 import SummaryForm from "../components/forms/SummaryForm";
 import ResumePreview from "../components/ResumePreview";
@@ -80,12 +80,30 @@ const ResumeBuilder = () => {
       });
 
       setResumeData(response.data.resume);
-      
+
       toast.success("Resume updated successfully");
 
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const handleShare = () => {
+    const frontendUrl = window.location.href.split("/app")[0];
+    const resumeUrl = frontendUrl + "/view/" + resumeId;
+
+    if (navigator.share) {
+      navigator.share({
+        url: resumeUrl,
+        text: 'My Resume'
+      })
+    } else {
+      toast.error("Your browser does not support sharing");
+    }
+  }
+
+  const handleDownloadOrPrint = () => {
+    window.print();
   }
 
   const activeSection = sections[activeSectionIndex];
@@ -208,7 +226,17 @@ const ResumeBuilder = () => {
           <div className="lg:col-span-7 max-lg:mt-6">
             {/* Preview */}
             <div className="lg:col-span-7 max-lg:mt-6">
-              <div>
+              <div className="relative w-full">
+                <div className="absolute bottom-3 left-0 right-0 flex items-center justify-end gap-2">
+                  {resumeData.public && (
+                    <button className="flex items-center justify-center py-2 px-4 gap-2 bg-blue-200 text-sm text-blue-600 rounded-lg hover:bg-blue-300 transition-all" onClick={handleShare} type="button">
+                      <ShareIcon className="size-4" /> Share
+                    </button>
+                  )}
+                  <button className="flex items-center justify-center py-2 px-4 gap-2 bg-purple-200 text-sm text-purple-600 rounded-lg hover:bg-purple-300 transition-all" onClick={handleDownloadOrPrint} type="button">
+                    <DownloadIcon className="size-4" /> Download / Print
+                  </button>
+                </div>
                 {/* Action print share */}
               </div>
               <div>

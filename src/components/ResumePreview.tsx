@@ -1,5 +1,6 @@
 import ModernTemplate from "./resume-templates/ModernTemplate"
 import ClassicTemplate from "./resume-templates/ClassicTemplate"
+import '../assets/print.css'
 
 type ResumePreviewProps = {
   data: any,
@@ -21,7 +22,7 @@ const ResumePreview = ({ data, template, accentColor }: ResumePreviewProps) => {
 
   return (
     <div className="w-full bg-gray-100">
-      <div className="border border-gray-200 print:shadow-none print:border-none">
+      <div id="resume-preview" className="border border-gray-200 print:shadow-none print:border-none">
         {renderTemplate()}
       </div>
     </div>

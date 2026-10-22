@@ -1,0 +1,39 @@
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  html,
+  body {
+    width: 210mm;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* hiding all elements of page */
+  body * {
+    visibility: hidden;
+  }
+
+  /* showing only #resume-preview */
+  #resume-preview,
+  #resume-preview * {
+    visibility: visible;
+  }
+
+  #resume-preview {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 !important;
+    padding: 10mm !important;
+    box-sizing: border-box;
+    box-shadow: none !important;
+    border: none !important;
+    background: white !important;
+  }
+}
